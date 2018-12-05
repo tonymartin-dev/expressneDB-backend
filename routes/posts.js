@@ -2,16 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 var Datastore = require('nedb');
-var db = new Datastore({filename: 'db/clients.db', autoload: true});
+var db = new Datastore({filename: 'db/posts.db', autoload: true});
 //db.insert(clientsData);
 // Using a unique constraint with the index
-db.ensureIndex({ fieldName: 'name', unique: true }, function (err) {});
-db.ensureIndex({ fieldName: 'username', unique: true }, function (err) {});
-db.ensureIndex({ fieldName: 'email', unique: true }, function (err) {});
+db.ensureIndex({ fieldName: 'title', unique: true }, function (err) {});
+db.ensureIndex({ fieldName: 'body', unique: true }, function (err) {});
 
 router.get('/', function(req, res, next) {
     console.log('QUERY: ', req.query)
-    db.find(getUserFilter(req.query), function(err, items) {
+    db.find(getPostFilter(req.query), function(err, items) {
         if(err){
             next(err);
         } else{
@@ -21,11 +20,10 @@ router.get('/', function(req, res, next) {
     //res.send('respond with a resource');
 });
 
-var getUserFilter = function(query) {
+var getPostFilter = function(query) {
     var result = {
-        name:       new RegExp(query.name, "i"),
-        username:   new RegExp(query.username, "i"),
-        _id:        new RegExp(query.id, "i"),
+        _id:       new RegExp(query.id, "i"),
+        userId:   new RegExp(query.userId, "i"),
     };
     
     return result;
@@ -60,14 +58,14 @@ var checkRequired = function(body, cb){
     if (body instanceof Array){
         body.forEach(function(element){
             
-            if(!element.name || !element.username || !element.email){
-                err = {message: 'Name, username and email are required'}
+            if(!element.title || !element.body || !element.userId){
+                err = {message: 'Title, body and user are required'}
             }
 
         })
     } else {
-        if(!body.name || !body.username || !body.email){
-            err = {message: 'Name, username and email are required'}
+        if(!body.title || !body.body || !body.userId){
+            err = {message: 'Title, body and user are required'}
         }
     }
 
@@ -79,22 +77,19 @@ var prepareItem = function(source) {
     
     if (source instanceof Array){
         var result = [];
-        source.forEach(function(user){
-            result.push(getClientsInfo(user))
+        source.forEach(function(post){
+            result.push(getClientsInfo(post))
         })
     }else{
         var result = getClientsInfo(source);
 
     }
 
-    function getClientsInfo(user){
-        
+    function getClientsInfo(post){        
         var output      = {};
-        output.name     = user.name;
-        output.username = user.username;
-        output.email    = user.email;
-        output.website  = user.website || null;
-        output.phone    = user.phone || null;
+        output.title    = post.title;
+        output.body     = post.body;
+        output.userId   = post.userId;
         return output;
     }
 
