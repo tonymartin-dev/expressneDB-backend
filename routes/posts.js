@@ -97,4 +97,50 @@ var prepareItem = function(source) {
 
 };
 
+router.put('/', function(req,res,next){
+    console.log('Modify Post')
+    console.log('QUERY: ', req.query)
+    console.log('BODY: ', prepareItem(req.body))
+    console.log('BODY: ', req.body)
+    
+    db.update(putPostFilter(req.query), req.body, function(err, item) {
+        if(err){
+            next(err)
+        }else{
+            var element     = req.body;
+            element.action  = "MODIFIED";
+            element._id     = req.query.id;
+            element.item    = item;
+            res.json(element);
+        }
+    });
+});
+
+var putPostFilter = function(query) {
+    var result = {
+        _id:       new RegExp(query.id, "i")
+    };
+    
+    return result;
+};
+
+router.put('/', function(req,res,next){
+    console.log('Modify Post')
+    console.log('QUERY: ', req.query)
+    console.log('BODY: ', prepareItem(req.body))
+    console.log('BODY: ', req.body)
+    
+    db.update(putPostFilter(req.query), function(err, item) {
+        if(err){
+            next(err)
+        }else{
+            var element     = req.body;
+            element.action  = "DELETED";
+            element._id     = req.query.id;
+            element.item    = item;
+            res.json(element);
+        }
+    });
+});
+
 module.exports = router;
