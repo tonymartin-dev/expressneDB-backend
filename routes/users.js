@@ -3,7 +3,7 @@ var router = express.Router();
 
 var Datastore = require('nedb');
 var db = new Datastore({filename: 'db/clients.db', autoload: true});
-//db.insert(clientsData);
+
 // Using a unique constraint with the index
 db.ensureIndex({ fieldName: 'name', unique: true }, function (err) {});
 db.ensureIndex({ fieldName: 'username', unique: true }, function (err) {});

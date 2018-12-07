@@ -1,17 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var indexRouter = require('./routes/index');
+//Dependencies
+var createError   = require('http-errors');
+var express       = require('express');
+var path          = require('path');
+var cookieParser  = require('cookie-parser');
+var logger        = require('morgan');
+var indexRouter   = require('./routes/index');
+var CORS          = require('cors')();
 
+//Databases
 var users = require('./routes/users');
 var posts = require('./routes/posts');
+var login = require('./routes/login');
 
+//App
 var app = express();
 
-//Allow cors
-app.use(require('cors')());
+//CORS
+app.use(CORS);
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -31,11 +36,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+//Services
 app.use('/', indexRouter);
 app.use('/users', users);
 app.use('/posts', posts);
-//app.use('/clients', clients);
-
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,20 +51,20 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  //res.locals.message = err.message;
-  //res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  //res.status(err.status || 500);
-  //res.render('error');
+  res.status(err.status || 500);
+  res.render('error');
 
-  let error = {
+  /*let error = {
     type: err.errorType,
     key:  err.key,
     msg:  err.message
   };
   res.status(412);
-  res.json(error);
+  res.json(error);*/
 
 });
 
