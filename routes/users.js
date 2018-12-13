@@ -60,14 +60,14 @@ var checkRequired = function(body, cb){
     if (body instanceof Array){
         body.forEach(function(element){
             
-            if(!element.name || !element.username || !element.email){
-                err = {message: 'Name, username and email are required'}
+            if(!element.name || !element.username || !element.email || !element.password){
+                err = {message: 'Name, username, password and email are required'}
             }
 
         })
     } else {
-        if(!body.name || !body.username || !body.email){
-            err = {message: 'Name, username and email are required'}
+        if(!body.name || !body.username || !body.email || !body.password){
+            err = {message: 'Name, username, password and email are required'}
         }
     }
 
@@ -93,6 +93,7 @@ var prepareItem = function(source) {
         output.name     = user.name;
         output.username = user.username;
         output.email    = user.email;
+        output.password = user.password;
         output.website  = user.website || null;
         output.phone    = user.phone || null;
         return output;
