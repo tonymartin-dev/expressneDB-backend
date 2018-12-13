@@ -34,7 +34,7 @@ passport.use(new LocalStrategy(     // configure passport.js to use the local st
 
         if (username === user.username && password === user.password) {
             console.log('Local strategy returned true')
-            return done(null, user)
+            return done(null, user, 'mimimi')
         } else {
             return done({ message: 'Invalid credentials.\n' }, false);
         }
@@ -99,6 +99,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
     console.log('\nInside POST /login callback function')
+    console.log('TOKENNNNNNNNNNNN', req.token);
     passport.authenticate('local', (err, user, info) => {
         console.log('\nInside passport.authenticate() callback');
         console.log(`   req.user:               ${JSON.stringify(req.user)}`);
@@ -114,7 +115,12 @@ router.post('/', (req, res, next) => {
                 console.log('\nInside req.login() callback')
                 console.log(`   req.session.passport: ${JSON.stringify(req.session.passport)}`)
                 console.log(`   req.user: ${JSON.stringify(req.user)}`)
-                return res.send('You were authenticated & logged in!\n');
+                userData = {}
+                for (const key in user) {
+                    if(key != 'password')
+                        userData[key] = user[key];                        
+                }
+                return res.send({status: 'LOGIN SUCCESS', userData: userData});
             }
         })
     })(req, res, next);

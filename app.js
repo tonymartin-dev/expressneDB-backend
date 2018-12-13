@@ -38,6 +38,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Services
+/*app.param('token', function(req,res, next, token){
+  req.token = 123456;
+  next()
+})*/
 app.use('/', indexRouter);
 app.use('/users', users);
 app.use('/posts', posts);
