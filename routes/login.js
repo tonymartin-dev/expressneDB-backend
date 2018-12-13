@@ -15,67 +15,113 @@ var Datastore = require('nedb');
 var db = new Datastore({filename: 'db/auth.db'});
 db.loadDatabase();
 
+function getUser(username, callback){
+    db.find({"username": username}, function(err, response) {
+        
+        if(err){
+            console.log('USER REQUEST ERROR: ', err);
+            callback(err, response)
+        }else{
+
+            console.log('USER REQUEST SUCCESS: ', response);
+            
+            user = response[0];
+
+            callback(null, user)
+
+        }
+
+    });
+}
+
 // configure passport.js to use the local strategy
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy( 
     { usernameField: 'username' },
     (username, password, done) => {
-        console.log('Inside local strategy callback')
-        // here is where you make a call to the database
-        // to find the user based on their username or email address
-        // for now, we'll just pretend we found that it was users[0]
-        var user;
-        db.find({"username": username}, function(err, items) {
-            console.log('ITEMS: ', items);
-            user = items[0];
-            //const user = users[0]
-            if (username === user.username && password === user.password) {
-                console.log('Local strategy returned true')
-                return done(null, user)
-            }
-        });
-    }
-));
+    console.log('\nInside local strategy callback');
+
+    getUser(username, (err, user)=>{
+
+        if(err)
+            return done(err, false, { message: 'Error consulting DB \n' });
+        
+        if(!user)
+            //return res.send('You were authenticated & logged in!\n');
+            return done({ message: 'Invalid credentials. (USERNAME)\n' }, false, { message: 'Invalid credentials. (USERNAME)\n' });
+
+        if (username === user.username && password === user.password) {
+            console.log('Local strategy returned true')
+            return done(null, user)
+        } else {
+            return done(true, false, { message: 'Invalid credentials.\n' });
+        }
+    })
+    
+}));
 
 // tell passport how to serialize the user
 passport.serializeUser((user, done) => {
-    console.log('Inside serializeUser callback. User id is save to the session file store here')
-    done(null, user.id);
+    console.log('\nInside serializeUser callback.');
+    console.log('   GENERATING SESSION. User id is save to the session file: ', user.username);
+    done(null, user.username);
 });
-
+passport.deserializeUser((username, done) => {
+    console.log('\nInside deserializeUser callback')
+    console.log(`   RECOVERING SESSION. The username passport saved in the session file store is: ${username}`)
+    getUser(username, (err, user)=>{
+        if(err){
+            done(null, false);
+        }else{
+            done(null, user);
+            //done(null, false);
+        }
+    })
+    //const user = users[0].username === username ? users[0] : false; 
+});
 //Router
 var router  = express.Router();
 
 // add & configure middleware
 router.use(session({
     genid: (req) => {
-      console.log('Inside the session middleware')
-      console.log(req.sessionID)
-      return uuid() // use UUIDs for session IDs
+        console.log('\n PASSPORT INIT \n')
+        console.log('\nInside the session middleware')
+        console.log('   Session ID',req.sessionID)
+        return uuid() // use UUIDs for session IDs
     },
     store: new FileStore(),
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true
 }))
-  
+router.use(passport.initialize());
+router.use(passport.session());
+
 //Methods
 router.get('/', (req, res) => {
-    console.log('Inside the homepage callback function')
-    console.log(req.sessionID)
+    console.log('\nInside the homepage callback function')
+    console.log('   Session ID', req.sessionID)
     res.send(`You hit home page!\n`)
 })
 
 router.post('/', (req, res, next) => {
-    console.log('Inside POST /login callback function')
+    console.log('\nInside POST /login callback function')
     passport.authenticate('local', (err, user, info) => {
-        console.log('Inside passport.authenticate() callback');
-        console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-        console.log(`req.user: ${JSON.stringify(req.user)}`)
+        console.log('\nInside passport.authenticate() callback');
+        console.log(`   req.session.passport: ${JSON.stringify(req.session.passport)}`);
+        console.log(`   req.user: ${JSON.stringify(req.user)}`);
+        if(err){
+            return next(err);
+        }
         req.login(user, (err) => {
-            console.log('Inside req.login() callback')
-            console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-            console.log(`req.user: ${JSON.stringify(req.user)}`)
-            return res.send('You were authenticated & logged in!\n');
+            if(err){
+                return next(err);
+            }else{
+                console.log('\nInside req.login() callback')
+                console.log(`   req.session.passport: ${JSON.stringify(req.session.passport)}`)
+                console.log(`   req.user: ${JSON.stringify(req.user)}`)
+                return res.send('You were authenticated & logged in!\n');
+            }
         })
     })(req, res, next);
 })

@@ -56,15 +56,15 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
 
-  /*let error = {
+  let error = {
     type: err.errorType,
     key:  err.key,
     msg:  err.message
   };
-  res.status(412);
-  res.json(error);*/
+  //res.status(412);
+  res.json(error);
 
 });
 
