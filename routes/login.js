@@ -7,7 +7,6 @@ var express     = require('express');
 var uuid        = require('uuid/v4');
 var session     = require('express-session');
 const FileStore = require('session-file-store')(session);
-var passport      = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 var session = require("express-session");
 var Datastore = require('nedb');
@@ -22,23 +21,24 @@ var router  = express.Router();
 passport.use(new LocalStrategy(     // configure passport.js to use the local strategy
     { usernameField: 'username' },
     (username, password, done) => {
-    console.log('\nInside local strategy callback');
+        
+        console.log('\nInside local strategy callback');
 
-    getUser(username, (err, user)=>{
+        getUser(username, (err, user)=>{
 
-        if(err)
-            return done(err, false, { message: 'Error consulting DB \n' });        
-        if(!user)
-            //return res.send('You were authenticated & logged in!\n');
-            return done({ message: 'Invalid credentials. (USERNAME)\n' }, false);
+            if(err)
+                return done(err, false, { message: 'Error consulting DB \n' });        
+            if(!user)
+                //return res.send('You were authenticated & logged in!\n');
+                return done({ message: 'Invalid credentials. (USERNAME)\n' }, false);
 
-        if (username === user.username && password === user.password) {
-            console.log('Local strategy returned true')
-            return done(null, user, 'mimimi')
-        } else {
-            return done({ message: 'Invalid credentials.\n' }, false);
-        }
-    })
+            if (username === user.username && password === user.password) {
+                console.log('Local strategy returned true')
+                return done(null, user, 'mimimi')
+            } else {
+                return done({ message: 'Invalid credentials.\n' }, false);
+            }
+        })
     
 }));
 

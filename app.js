@@ -6,11 +6,14 @@ var cookieParser  = require('cookie-parser');
 var logger        = require('morgan');
 var indexRouter   = require('./routes/index');
 var CORS          = require('cors')();
+var passport      = require('passport')
 
-//Databases
+//routes
 var users = require('./routes/users');
 var posts = require('./routes/posts');
 var login = require('./routes/login');
+var auth  = require('./routes/auth');
+
 
 //App
 var app = express();
@@ -36,6 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+require('./routes/passport');
 
 //Services
 /*app.param('token', function(req,res, next, token){
@@ -43,9 +47,10 @@ app.use(express.static(path.join(__dirname, 'public')));
   next()
 })*/
 app.use('/', indexRouter);
-app.use('/users', users);
-app.use('/posts', posts);
 app.use('/login', login);
+app.use('/auth', auth);
+app.use('/users', passport.authenticate('jwt', {session: false}), users);
+app.use('/posts', passport.authenticate('jwt', {session: false}), posts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
