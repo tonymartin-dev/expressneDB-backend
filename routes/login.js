@@ -2,15 +2,15 @@
  * TUTORIAL
  * https://medium.com/@evangow/server-authentication-basics-express-sessions-passport-and-curl-359b7456003d
  */
-var passport    = require('passport')
-var express     = require('express');
-var uuid        = require('uuid/v4');
-var session     = require('express-session');
-const FileStore = require('session-file-store')(session);
-var LocalStrategy = require('passport-local').Strategy;
-var session = require("express-session");
-var Datastore = require('nedb');
-var db = new Datastore({filename: 'db/clients.db'});
+var passport        = require('passport')
+var express         = require('express');
+var uuid            = require('uuid/v4');
+var session         = require('express-session');
+const FileStore     = require('session-file-store')(session);
+var LocalStrategy   = require('passport-local').Strategy;
+var session         = require("express-session");
+var Datastore       = require('nedb');
+var db              = new Datastore({filename: 'db/clients.db'});
 db.loadDatabase();
 //Router
 var router  = express.Router();
@@ -65,7 +65,7 @@ passport.deserializeUser((sessionData, done) => {
         if(err){
             done(null, false);
         }else{
-            done(null, {user: user, token: sessionData.token}, 'yeah');
+            done(null, {user: user, token: sessionData.token});
             //done(null, false);
         }
     })
@@ -99,7 +99,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res, next) => {
     console.log('\nInside POST /login callback function')
-    console.log('TOKENNNNNNNNNNNN', req.token);
+    console.log('TOKEN', req.token);
     passport.authenticate('local', (err, user, info) => {
         console.log('\nInside passport.authenticate() callback');
         console.log(`   req.user:               ${JSON.stringify(req.user)}`);

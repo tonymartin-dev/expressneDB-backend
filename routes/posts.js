@@ -42,6 +42,7 @@ router.post('/', function(req, res, next) {
         return;
     }
 
+
     db.insert(prepareItem(req.body), function(err, item) {
         if(err){
             next(err)
@@ -90,6 +91,8 @@ var prepareItem = function(source) {
         output.title    = post.title;
         output.body     = post.body;
         output.userId   = post.userId;
+        output.date     = new Date().getTime();
+
         return output;
     }
 

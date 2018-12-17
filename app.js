@@ -14,7 +14,6 @@ var posts = require('./routes/posts');
 var login = require('./routes/login');
 var auth  = require('./routes/auth');
 
-
 //App
 var app = express();
 
@@ -39,13 +38,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-require('./routes/passport');
+require('./routes/passportToken');
+//require('./routes/passportSession');
 
-//Services
-/*app.param('token', function(req,res, next, token){
-  req.token = 123456;
-  next()
-})*/
+// API
 app.use('/', indexRouter);
 app.use('/login', login);
 app.use('/auth', auth);
