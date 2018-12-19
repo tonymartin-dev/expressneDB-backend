@@ -1,14 +1,19 @@
-var express = require('express');
-var router = express.Router();
+var express     = require('express');
+var router      = express.Router();
+var passport    = require('passport')
 
-var Datastore = require('nedb');
-var db = new Datastore({filename: 'db/posts.db', autoload: true});
-//db.insert(clientsData);
+//Database
+var Datastore   = require('nedb');
+var db          = new Datastore({filename: 'db/posts.db', autoload: true});
+
 // Using a unique constraint with the index
 db.ensureIndex({ fieldName: 'title', unique: true }, function (err) {});
 db.ensureIndex({ fieldName: 'body', unique: true }, function (err) {});
 
-router.get('/', function(req, res, next) {
+/**
+ * METHODS
+ */
+router.get('/', passport.authenticate('jwt', { session : false }), function(req, res, next) {
     console.log('QUERY: ', req.query)
     db.find(getPostFilter(req.query), function(err, items) {
         if(err){
@@ -20,16 +25,7 @@ router.get('/', function(req, res, next) {
     //res.send('respond with a resource');
 });
 
-var getPostFilter = function(query) {
-    var result = {
-        _id:       new RegExp(query.id, "i"),
-        userId:   new RegExp(query.userId, "i"),
-    };
-    
-    return result;
-};
-
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session : false }), function(req, res, next) {
 
     var error;
 
@@ -51,6 +47,56 @@ router.post('/', function(req, res, next) {
         }
     });
 });
+
+router.put('/', passport.authenticate('jwt', { session : false }), function(req,res,next){
+    console.log('Modify Post')
+    console.log('QUERY: ', req.query)
+    console.log('BODY: ', prepareItem(req.body))
+    console.log('BODY: ', req.body)
+    
+    db.update(putPostFilter(req.query), req.body, function(err, item) {
+        if(err){
+            next(err)
+        }else{
+            var element     = req.body;
+            element.action  = "MODIFIED";
+            element._id     = req.query.id;
+            element.item    = item;
+            res.json(element);
+        }
+    });
+});
+
+router.delete('/', passport.authenticate('jwt', { session : false }), function(req,res,next){
+    console.log('Modify Post')
+    console.log('QUERY: ', req.query)
+    console.log('BODY: ', prepareItem(req.body))
+    console.log('BODY: ', req.body)
+    
+    db.update(putPostFilter(req.query), function(err, item) {
+        if(err){
+            next(err)
+        }else{
+            var element     = req.body;
+            element.action  = "DELETED";
+            element._id     = req.query.id;
+            element.item    = item;
+            res.json(element);
+        }
+    });
+});
+
+/**
+ * UTILS
+ */
+var getPostFilter = function(query) {
+    var result = {
+        _id:       new RegExp(query.id, "i"),
+        userId:   new RegExp(query.userId, "i"),
+    };
+    
+    return result;
+};
 
 var checkRequired = function(body, cb){
 
@@ -100,25 +146,6 @@ var prepareItem = function(source) {
 
 };
 
-router.put('/', function(req,res,next){
-    console.log('Modify Post')
-    console.log('QUERY: ', req.query)
-    console.log('BODY: ', prepareItem(req.body))
-    console.log('BODY: ', req.body)
-    
-    db.update(putPostFilter(req.query), req.body, function(err, item) {
-        if(err){
-            next(err)
-        }else{
-            var element     = req.body;
-            element.action  = "MODIFIED";
-            element._id     = req.query.id;
-            element.item    = item;
-            res.json(element);
-        }
-    });
-});
-
 var putPostFilter = function(query) {
     var result = {
         _id:       new RegExp(query.id, "i")
@@ -126,24 +153,5 @@ var putPostFilter = function(query) {
     
     return result;
 };
-
-router.put('/', function(req,res,next){
-    console.log('Modify Post')
-    console.log('QUERY: ', req.query)
-    console.log('BODY: ', prepareItem(req.body))
-    console.log('BODY: ', req.body)
-    
-    db.update(putPostFilter(req.query), function(err, item) {
-        if(err){
-            next(err)
-        }else{
-            var element     = req.body;
-            element.action  = "DELETED";
-            element._id     = req.query.id;
-            element.item    = item;
-            res.json(element);
-        }
-    });
-});
 
 module.exports = router;

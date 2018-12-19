@@ -1,15 +1,20 @@
-var express = require('express');
-var router = express.Router();
+var express     = require('express');
+var router      = express.Router();
+var passport    = require('passport')
 
-var Datastore = require('nedb');
-var db = new Datastore({filename: 'db/clients.db', autoload: true});
+//Database
+var Datastore   = require('nedb');
+var db          = new Datastore({filename: 'db/clients.db', autoload: true});
 
 // Using a unique constraint with the index
 db.ensureIndex({ fieldName: 'name', unique: true }, function (err) {});
 db.ensureIndex({ fieldName: 'username', unique: true }, function (err) {});
 db.ensureIndex({ fieldName: 'email', unique: true }, function (err) {});
 
-router.get('/', function(req, res, next) {
+/**
+ * METHODS
+ */
+router.get('/', passport.authenticate('jwt', { session : false }), function(req, res, next) {
     console.log('QUERY: ', req.query)
     db.find(getUserFilter(req.query), function(err, items) {
         if(err){
@@ -21,17 +26,7 @@ router.get('/', function(req, res, next) {
     //res.send('respond with a resource');
 });
 
-var getUserFilter = function(query) {
-    var result = {
-        name:       new RegExp(query.name, "i"),
-        username:   new RegExp(query.username, "i"),
-        _id:        new RegExp(query.id, "i"),
-    };
-    
-    return result;
-};
-
-router.post('/', function(req, res, next) {
+router.post('/', passport.authenticate('jwt', { session : false }), function(req, res, next) {
 
     var error;
 
@@ -53,6 +48,9 @@ router.post('/', function(req, res, next) {
     });
 });
 
+/**
+ * UTILS
+ */
 var checkRequired = function(body, cb){
 
     var err = undefined;
@@ -101,6 +99,16 @@ var prepareItem = function(source) {
 
     return result;
 
+};
+
+var getUserFilter = function(query) {
+    var result = {
+        name:       new RegExp(query.name, "i"),
+        username:   new RegExp(query.username, "i"),
+        _id:        new RegExp(query.id, "i"),
+    };
+    
+    return result;
 };
 
 module.exports = router;

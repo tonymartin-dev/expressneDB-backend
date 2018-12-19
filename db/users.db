@@ -1,0 +1,6 @@
+{"username":"user","password":"123456","_id":"4NSTECjo0E5oD4eM"}
+{"username":"user2","password":"123456","_id":"M7qlOBaUKawgF7Eo"}
+{"username":"user5","password":"123456","_id":"Nl5pXIng6UjMBIRZ"}
+{"username":"user4","password":"123456","_id":"t7HBBP7fuMEvR6R7"}
+{"username":"user3","password":"123456","_id":"zNwVqCz4Cw97RxEs"}
+{"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}

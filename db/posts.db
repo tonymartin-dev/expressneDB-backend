@@ -104,3 +104,6 @@
 {"title":"HEY quam voluptatibus rerum veritatis","body":"nobis facilis odit tempore cupiditate quia\nassumenda doloribus rerum qui ea\nillum et qui totam\naut veniam repellendus","userId":"JM7Lp4mTaExU6hWh","_id":"zpX9uF1grcQvj0yB"}
 {"$$indexCreated":{"fieldName":"title","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"body","unique":true,"sparse":false}}
+{"title":"Hey","body":"Heyhey","userId":"sC4SoO9LJ8kCViAi","date":1545224761767,"_id":"zE8IQWeyqggsQNXP"}
+{"title":"Hey","body":"Heyhey...","userId":"sC4SoO9LJ8kCViAi","_id":"zE8IQWeyqggsQNXP"}
+{"title":"Hey","body":"Heyhey...!","userId":"sC4SoO9LJ8kCViAi","_id":"zE8IQWeyqggsQNXP"}

@@ -9,10 +9,10 @@ var CORS          = require('cors')();
 var passport      = require('passport')
 
 //routes
+var signup = require('./routes/signup');
+var login = require('./routes/login');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
-var login = require('./routes/login');
-var auth  = require('./routes/auth');
 
 //App
 var app = express();
@@ -26,6 +26,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Load middleware functions
+require('./auth/auth');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,16 +39,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-require('./routes/passportToken');
-//require('./routes/passportSession');
-
 // API
 app.use('/', indexRouter);
+app.use('/signup', signup);
 app.use('/login', login);
-app.use('/auth', auth);
-app.use('/users', passport.authenticate('jwt', {session: false}), users);
-app.use('/posts', passport.authenticate('jwt', {session: false}), posts);
+app.use('/users', users);
+app.use('/posts', posts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
