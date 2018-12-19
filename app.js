@@ -40,13 +40,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 require('./routes/passportToken');
 //require('./routes/passportSession');
-
+function authorized(request, response, next) {
+  passport.authenticate('jwt', { session: false, }, async (error, token) => {
+    if (error || !token) {
+      response.status(401).json({ message: 'Unauthorized' });
+    }
+  })(request, response, next);
+} 
 // API
 app.use('/', indexRouter);
 app.use('/login', login);
 app.use('/auth', auth);
-app.use('/users', passport.authenticate('jwt', {session: false}), users);
-app.use('/posts', passport.authenticate('jwt', {session: false}), posts);
+app.use('/users', authorized, users);
+app.use('/posts', authorized, posts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

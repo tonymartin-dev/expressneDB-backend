@@ -48,7 +48,7 @@ passport.use(new LocalStrategy(     // configure passport.js to use the local st
 passport.use(new JWTStrategy(
     {
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey   : 'your_jwt_secret'
+        secretOrKey   : 'react_blog_project'
     },
     function (jwtPayload, done) {
 
@@ -75,6 +75,8 @@ passport.use(new JWTStrategy(
 /**
  * UTILITIES
  */
+
+
 
 function getUser(username, callback){
     db.find({"username": username}, function(err, response) {
