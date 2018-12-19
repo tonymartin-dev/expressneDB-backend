@@ -13,8 +13,8 @@ db.ensureIndex({ fieldName: 'email', unique: true }, function (err) {});
 
 /**
  * METHODS
- */
-router.get('/', passport.authenticate('jwt', { session : false }), function(req, res, next) {
+ * /
+router.get('/', passport.authenticate('jwt', { session : false, failureFlash: {error: 'unauth'} }), function(req, res, next) {
     console.log('QUERY: ', req.query)
     db.find(getUserFilter(req.query), function(err, items) {
         if(err){
@@ -24,6 +24,33 @@ router.get('/', passport.authenticate('jwt', { session : false }), function(req,
         }
     });
     //res.send('respond with a resource');
+});
+*/
+
+router.get('/', function(req, res, next) {
+    passport.authenticate('jwt', { session : false }, function (err, user, info){
+        
+        //Prevent continuing if there are errors
+        if(err) {
+            return next(err);
+        }
+        if(info){
+            info.status = 401;
+            return next(info);
+        }
+
+        //If the token is valid, give a response
+        console.log('QUERY: ', req.query)
+        db.find(getUserFilter(req.query), function(err, items) {
+            if(err){
+                next(err);
+            } else{
+                res.json(items);
+            }
+        });
+
+
+    })(req, res, next);
 });
 
 router.post('/', passport.authenticate('jwt', { session : false }), function(req, res, next) {

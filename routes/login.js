@@ -15,7 +15,7 @@ router.post("/", async (req, res, next) => {
             //We don't want to store the sensitive information such as the user password in the token so we pick only the username and id
             const body = { _id: user._id, username: user.username };
             //Sign the JWT token and populate the payload with the user username and id
-            const token = jwt.sign({ user: body }, "top_secret");       //The secret is used to decode the token in auth.js
+            const token = jwt.sign({ user: body }, "top_secret", { expiresIn: '10m' });       //The secret is used to decode the token in auth.js
             //Send back the token to the user
             return res.json({
                 message : 'Login successful',
