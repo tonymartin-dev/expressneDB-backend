@@ -9,8 +9,6 @@ var CORS          = require('cors')();
 var passport      = require('passport')
 
 //routes
-var signup = require('./routes/signup');
-var login = require('./routes/login');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
 
@@ -41,8 +39,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API
 app.use('/', indexRouter);
-app.use('/signup', signup);
-app.use('/login', login);
 app.use('/users', users);
 app.use('/posts', posts);
 
