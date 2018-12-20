@@ -98,7 +98,6 @@
 {"title":"odit et voluptates doloribus alias odio et","body":"est molestiae facilis quis tempora numquam nihil qui\nvoluptate sapiente consequatur est qui\nnecessitatibus autem aut ipsa aperiam modi dolore numquam\nreprehenderit eius rem quibusdam","userId":"ZG46tVc8RXDGyVV8","_id":"v6BPtHMsCtHdllmw"}
 {"title":"asperiores ea ipsam voluptatibus modi minima quia sint","body":"repellat aliquid praesentium dolorem quo\nsed totam minus non itaque\nnihil labore molestiae sunt dolor eveniet hic recusandae veniam\ntempora et tenetur expedita sunt","userId":"BKBmoYCV8uNv3qIN","_id":"v949BQeEOXX6ULxU"}
 {"title":"sit asperiores ipsam eveniet odio non quia","body":"totam corporis dignissimos\nvitae dolorem ut occaecati accusamus\nex velit deserunt\net exercitationem vero incidunt corrupti mollitia","userId":"G3bhzuExoAtZ0Lxp","_id":"xMeo1tIJ2NHJ3ti8"}
-{"title":"Prueba con tokenes chulos","body":"Edición 2 de post con nuevo servicio de tokens chulos","userId":"23uQwngrkmedlYY5","_id":"xQX9Y5dHlvMt445x"}
 {"title":"aut amet sed","body":"libero voluptate eveniet aperiam sed\nsunt placeat suscipit molestias\nsimilique fugit nam natus\nexpedita consequatur consequatur dolores quia eos et placeat","userId":"fSl1cA0PKhxJuZc7","_id":"xtuDK1BGNFiRqLfg"}
 {"title":"nesciunt iure omnis dolorem tempora et accusantium","body":"consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas","userId":"1v8sAv1jHsDqUD5Y","_id":"y4s6kTBfGtJsMtv0"}
 {"title":"magnam facilis autem","body":"dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas","userId":"1v8sAv1jHsDqUD5Y","_id":"yihZKKcTluo17bIV"}
@@ -107,4 +106,6 @@
 {"title":"HEY quam voluptatibus rerum veritatis","body":"nobis facilis odit tempore cupiditate quia\nassumenda doloribus rerum qui ea\nillum et qui totam\naut veniam repellendus","userId":"JM7Lp4mTaExU6hWh","_id":"zpX9uF1grcQvj0yB"}
 {"$$indexCreated":{"fieldName":"title","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"body","unique":true,"sparse":false}}
-{"$$deleted":true,"_id":"xQX9Y5dHlvMt445x"}
+{"title":"Prueba para usuario","body":"Lalalala","userId":"1v8sAv1jHsDqUD5Y","date":1545317104782,"_id":"dgeSWT58jwJNL6iv"}
+{"title":"Probando probando","body":"lorem ipsum","userId":"23uQwngrkmedlYY5","date":1545317128823,"_id":"bpEXzjJs01OPZuJ9"}
+{"title":"Probando probando","body":"lorem ipsum lalala","userId":"23uQwngrkmedlYY5","_id":"bpEXzjJs01OPZuJ9"}

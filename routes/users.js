@@ -106,11 +106,22 @@ router.post("/refreshToken", async (req, res, next) => {
 
         const body = { _id: user._id, username: user.username };
         const token = jwt.sign({ user: body }, "top_secret", { expiresIn: '10m' });       //The secret is used to decode the token in auth.js
+        
+        var completeUser;
 
-        res.json({
-            msg: "token Refreshed",
-            token: token
-        })
+        db.find(getUserFilter({_id: user._id}), function(err, items) {
+            if(err){
+                return next(err);
+            } else{
+                completeUser = items[0];
+            }
+            res.json({
+                msg: "token Refreshed",
+                token: token,
+                user: completeUser
+            })
+        });
+
     })(req, res, next);
 });
 
