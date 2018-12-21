@@ -3,6 +3,7 @@ var router          = express.Router();
 var passport        = require('passport');
 const jwt           = require("jsonwebtoken");
 const localStrategy = require('passport-local').Strategy;
+const bcrypt        = require('bcrypt');
 
 //Database
 var Datastore   = require('nedb');
@@ -60,7 +61,7 @@ router.post("/login", async (req, res, next) => {
             //We don't want to store the sensitive information such as the user password in the token so we pick only the username and id
             const body = { _id: user._id, username: user.username };
             //Sign the JWT token and populate the payload with the user username and id
-            const token = jwt.sign({ user: body }, "top_secret", { expiresIn: '10m' });       //The secret is used to decode the token in auth.js
+            const token = jwt.sign({ user: body }, "top_secret", { expiresIn: '5m' });       //The secret is used to decode the token in auth.js
             //Send back the token to the user
             var sendUser = {...user};
             delete sendUser.password;
@@ -81,14 +82,25 @@ router.post('/signup', function(req, res, next) {
 
     var requirementsError;
     checkRequired(req.body, function(err){
-        requirementsError = err;
+        if(err){
+            err.status = 400;
+            requirementsError = err;
+        }
     });    
     if(requirementsError) return next(requirementsError);
 
-    db.insert(prepareItem(req.body), function(err, item) {
-        if(err) next(err);
-        else res.json(item);
+    //Hash password
+    const saltRounds = 10;
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+            req.body.hashPassword = hash;
+            db.insert(prepareItem(req.body), function(err, item) {
+                if(err) next(err);
+                else res.json(item);
+            });
+        });
     });
+
 
 });
 
@@ -105,7 +117,7 @@ router.post("/refreshToken", async (req, res, next) => {
         }
 
         const body = { _id: user._id, username: user.username };
-        const token = jwt.sign({ user: body }, "top_secret", { expiresIn: '10m' });       //The secret is used to decode the token in auth.js
+        const token = jwt.sign({ user: body }, "top_secret", { expiresIn: '5m' });       //The secret is used to decode the token in auth.js
         
         var completeUser;
 
@@ -150,31 +162,17 @@ var checkRequired = function(body, cb){
 
 }
 
-var prepareItem = function(source) {
+var prepareItem = function(user) {
     
-    if (source instanceof Array){
-        var result = [];
-        source.forEach(function(user){
-            result.push(getClientsInfo(user))
-        })
-    }else{
-        var result = getClientsInfo(source);
+    var output      = {};
+    output.name     = user.name;
+    output.username = user.username;
+    output.email    = user.email;
+    output.password = user.hashPassword;
+    output.website  = user.website || null;
+    output.phone    = user.phone || null;
 
-    }
-
-    function getClientsInfo(user){
-        
-        var output      = {};
-        output.name     = user.name;
-        output.username = user.username;
-        output.email    = user.email;
-        output.password = user.password;
-        output.website  = user.website || null;
-        output.phone    = user.phone || null;
-        return output;
-    }
-
-    return result;
+    return output;
 
 };
 
@@ -200,24 +198,25 @@ passport.use('login', new localStrategy({
       //Find the user associated with the username provided
       db.find({username: username}, function(err, users){
           
-          if(err) done(err);
-  
-          var user = users[0];
+            if(err) done(err);
+    
+            var user = users[0];
           
-          //If the user isn't found in the database, return a message
-          if( !user ) return done(null, false, { message : 'User not found'});
-      
-          db.find({password: password}, function(err, users){
-  
-              //If the passwords match, it returns a value of true.
-              if( !user ) return done(null, false);
-              
-              //Send the user information to the next middleware
-              return done(null, user);
-  
-          });
-  
-  
+            //If the user isn't found in the database, return a message
+            if( !user ) return done(null, false, { message : 'User not found'});
+        
+            //If it was found, compare passwords
+            bcrypt.compare(password, user.password, function(err, res) {
+                if(res){
+                    return done(null, user);
+                }else if (err){
+                    done(err);
+                }else{
+                    var error = Error('Invalid credentials')
+                    done(error);
+                }
+            });
+
       })
     
 }));
