@@ -1,0 +1,19 @@
+{"name":"Clementine Bauch","username":"Samantha","email":"Nathan@yesenia.net","website":"ramiro.info","phone":"1-463-123-4447","_id":"1v8sAv1jHsDqUD5Y","password":"$2b$10$6AStWwU1u8tTcTsCPi8XyOVQ1MZARDuZlbwE8QfqDGe6YhLO4HMdG"}
+{"name":"Usuario de prueba","username":"test","email":"test@ramirez.com","password":"123456","website":null,"phone":null,"_id":"23uQwngrkmedlYY5"}
+{"name":"ju","username":"PEPITO","email":"tonymartinweb@gmail.com","password":"$2b$10$6AStWwU1u8tTcTsCPi8XyOVQ1MZARDuZlbwE8QfqDGe6YhLO4HMdG","website":null,"phone":null,"_id":"3fXh2YfnZDuIwcnS"}
+{"name":"Ervin Howell","username":"Antonette","email":"Shanna@melissa.tv","website":"anastasia.net","phone":"010-692-6593 x09125","_id":"60A8ZEyUMtD5nIhA"}
+{"name":"Pepe Ramírez","username":"elPepe","email":"pepe@ramirez.com","website":null,"phone":null,"_id":"BKBmoYCV8uNv3qIN"}
+{"name":"Pedro Ramírez","username":"elPedro","email":"pedro@ramirez.com","website":null,"phone":null,"_id":"BmQxXIpXji7Lae7Y"}
+{"name":"Chelsey Dietrich","username":"Kamren","email":"Lucio_Hettinger@annie.ca","website":"demarco.info","phone":"(254)954-1289","_id":"CWCyOXZDNiVWD9rU"}
+{"name":"Kurtis Weissnat","username":"Elwyn.Skiles","email":"Telly.Hoeger@billy.biz","website":"elvis.io","phone":"210.067.6132","_id":"G3bhzuExoAtZ0Lxp"}
+{"name":"Juan Ramírez","username":"elJuan","email":"juan@ramirez.com","website":null,"phone":null,"_id":"IqaIG1ltgkchjtnO"}
+{"name":"User with hash","username":"user","email":"a","password":"$2b$10$UX3eREODpBj5kFtG8Xfl/uQL3Cs/14Y8DJzq7irZDdsBID/oonz9.","website":null,"phone":null,"_id":"IuEv5ZKp10kw3SK9"}
+{"name":"Clementina DuBuque","username":"Moriah.Stanton","email":"Rey.Padberg@karina.biz","website":"ambrose.net","phone":"024-648-3804","_id":"JM7Lp4mTaExU6hWh"}
+{"name":"Leanne Graham","username":"Bret","email":"Sincere@april.biz","website":"hildegard.org","phone":"1-770-736-8031 x56442","_id":"ZG46tVc8RXDGyVV8"}
+{"name":"Mrs. Dennis Schulist","username":"Leopoldo_Corkery","email":"Karley_Dach@jasper.info","website":"ola.org","phone":"1-477-935-8478 x6430","_id":"fSl1cA0PKhxJuZc7"}
+{"name":"Glenna Reichert","username":"Delphine","email":"Chaim_McDermott@dana.io","website":"conrad.com","phone":"(775)976-6794 x41206","_id":"jixxGTT00KBgqMcj"}
+{"name":"Patricia Lebsack","username":"Karianne","email":"Julianne.OConner@kory.org","website":"kale.biz","phone":"493-170-9623 x156","_id":"mPdhuJJWN1cXRiOs"}
+{"name":"Nicholas Runolfsdottir V","username":"Maxime_Nienow","email":"Sherwood@rosamond.me","website":"jacynthe.com","phone":"586.493.6943 x140","_id":"sC4SoO9LJ8kCViAi"}
+{"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}
+{"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}
+{"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}

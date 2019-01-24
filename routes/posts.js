@@ -199,14 +199,14 @@ var prepareItem = function(source) {
     if (source instanceof Array){
         var result = [];
         source.forEach(function(post){
-            result.push(getClientsInfo(post))
+            result.push(getPostsInfo(post))
         })
     }else{
-        var result = getClientsInfo(source);
+        var result = getPostsInfo(source);
 
     }
 
-    function getClientsInfo(post){        
+    function getPostsInfo(post){        
         var output      = {};
         output.title    = post.title;
         output.body     = post.body;
