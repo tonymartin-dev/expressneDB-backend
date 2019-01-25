@@ -121,7 +121,7 @@ router.post("/refreshToken", async (req, res, next) => {
         
         var completeUser;
 
-        db.find(getUserFilter({_id: user._id}), function(err, items) {
+        db.find(getUserFilter({id: user._id}), function(err, items) {
             if(err){
                 return next(err);
             } else{

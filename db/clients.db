@@ -1,5 +1,5 @@
 {"name":"User with hash","username":"user","email":"a","password":"$2b$10$UX3eREODpBj5kFtG8Xfl/uQL3Cs/14Y8DJzq7irZDdsBID/oonz9.","website":null,"phone":null,"_id":"IuEv5ZKp10kw3SK9"}
+{"name":"Second user","username":"user2","email":"asasasas","password":"$2b$10$5/47c9DotaFRNDWKh2ON8OVHqAS1nNwdqzBQK2XL/N6HaSWjD45mm","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}
 {"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
-{"name":"Second user","username":"user2","email":"asasasas","password":"$2b$10$5/47c9DotaFRNDWKh2ON8OVHqAS1nNwdqzBQK2XL/N6HaSWjD45mm","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}
