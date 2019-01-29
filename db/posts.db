@@ -1,5 +1,9 @@
-{"title":"est et quae odit qui non!","body":"similique esse doloribus nihil accusamus\\nomnis dolorem fuga consequuntur reprehenderit fugit recusandae temporibus\\nperspiciatis cum ut laudantium\\nomnis aut molestiae vel vero","userId":"ZAKVpof5KRgs0AGW","_id":"02MR5r6BGE3u64PH"}
 {"title":"at nam consequatur ea labore ea harum","body":"cupiditate quo est a modi nesciunt soluta\\nipsa voluptas error itaque dicta in\\nautem qui minus magnam et distinctio eum\\naccusamus ratione error aut","userId":"IuEv5ZKp10kw3SK9","date":1548346566165,"_id":"BJX5HtugC3jaUaGT"}
+{"title":"Prueba","body":"yeah","userId":"ZAKVpof5KRgs0AGW","date":1548419925793,"_id":"YSTkhZdXjdhMLW3z"}
+{"title":"Test Post","body":"Body.","userId":"ZAKVpof5KRgs0AGW","_id":"gKZfH7JoXzGpwioV"}
 {"title":"pariatur consequatur quia magnam autem omnis non amet","body":"libero accusantium et et facere incidunt sit dolorem\\nnon excepturi qui quia sed laudantium\\nquisquam molestiae ducimus est\\nofficiis esse molestiae iste et quos","userId":"IuEv5ZKp10kw3SK9","date":1548346579631,"_id":"qQJOcC4WfuGt3VKH"}
 {"$$indexCreated":{"fieldName":"title","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"body","unique":true,"sparse":false}}
+{"$$deleted":true,"_id":"gKZfH7JoXzGpwioV"}
+{"title":"Para borrar","body":"borrado","userId":"ZAKVpof5KRgs0AGW","date":1548749348633,"_id":"8NVXf7NjxA9RSpC3"}
+{"$$deleted":true,"_id":"8NVXf7NjxA9RSpC3"}

@@ -128,7 +128,8 @@ router.delete('/', function(req,res,next){
         }
 
         //Only delete user's own posts
-        db.find(getPostFilter(req.query), function(err, items) {
+        let query = {id: req.body.id};
+        db.find(getPostFilter(query), function(err, items) {
             if(err){
                 console.log('ERROR: ', err)
                 return next(err)
@@ -140,7 +141,7 @@ router.delete('/', function(req,res,next){
                 return next(error);
             }
 
-            db.remove(putPostFilter(req.query), function(err, numRemoved) {
+            db.remove(putPostFilter(query), function(err, numRemoved) {
                 if(err){
                     next(err)
                 }else{
