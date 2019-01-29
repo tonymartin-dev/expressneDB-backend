@@ -120,7 +120,7 @@ router.put('/', function(req, res, next) {
         var query = {id: req.body._id}
         console.log('QUERY: ', query)
         
-        db.update(getUserFilter(query), req.body, function(err, items) {
+        db.update(getUserFilter(query), {$set: req.body}, function(err, items) {
             if(err){
                 next(err)
             }else{

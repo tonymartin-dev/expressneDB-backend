@@ -1,7 +1,7 @@
-{"name":"User with hash","username":"user","email":"a","password":"$2b$10$UX3eREODpBj5kFtG8Xfl/uQL3Cs/14Y8DJzq7irZDdsBID/oonz9.","website":null,"phone":null,"_id":"IuEv5ZKp10kw3SK9"}
-{"name":"Second user","username":"user2","email":"asasasas","password":"$2b$10$5/47c9DotaFRNDWKh2ON8OVHqAS1nNwdqzBQK2XL/N6HaSWjD45mm","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}
 {"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
-{"name":"Second user","username":"user2","email":"asasasas","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}
-{"name":"Second user","username":"user2","email":"asasasas","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}
+{"name":"User","username":"user","email":"email","password":"$2b$10$vfCSYWHqtsl8QmI1K7B9peB5.2DcxZo6XHcUXrM.pMIOvToYtNeFa","website":"web","phone":"phone","_id":"37gdQhRFKnAgrMxw"}
+{"name":"User 2","username":"user2","email":"as","password":"$2b$10$bKZL/Iodrl58770IrYyrwepUGr5Qjsv0P7pDbwlnqmo80qFFTPtTe","website":"as","phone":"as","_id":"uZBVPOroGnZsxUYc"}
+{"name":"User 3","username":"user3","email":"poasd","password":"$2b$10$7H.OmzYapPoHNOqj.fntzOA7AfAiyAXDHTtM2ptTRI26oFBaR6tb2","website":"posd","phone":"mopv","_id":"TGEXjjzP7RpR6RIU"}
+{"name":"User 3","username":"user3","email":"poasd@","password":"$2b$10$7H.OmzYapPoHNOqj.fntzOA7AfAiyAXDHTtM2ptTRI26oFBaR6tb2","website":"posd","phone":"mopv","_id":"TGEXjjzP7RpR6RIU"}
