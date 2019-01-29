@@ -3,3 +3,5 @@
 {"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
+{"name":"Second user","username":"user2","email":"asasasas","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}
+{"name":"Second user","username":"user2","email":"asasasas","website":"wwasasa","phone":"12sasas","_id":"ZAKVpof5KRgs0AGW"}

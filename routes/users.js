@@ -104,6 +104,35 @@ router.post('/signup', function(req, res, next) {
 
 });
 
+router.put('/', function(req, res, next) {
+    passport.authenticate('jwt', { session : false }, function (err, user, info){
+        
+        //Prevent continuing if there are errors
+        if(err) {
+            return next(err);
+        }
+        if(info){
+            info.status = 401;
+            return next(info);
+        }
+
+        //If the token is valid, give a response
+        var query = {id: req.body._id}
+        console.log('QUERY: ', query)
+        
+        db.update(getUserFilter(query), req.body, function(err, items) {
+            if(err){
+                next(err)
+            }else{
+                var element     = req.body;
+                element.action  = "MODIFIED";
+                res.json(element);
+            }
+        });
+    
+    })(req, res, next);
+});
+
 router.post("/refreshToken", async (req, res, next) => {
     passport.authenticate('jwt', { session : false }, function (err, user, info){
        
